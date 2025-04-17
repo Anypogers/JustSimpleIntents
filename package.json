@@ -1,0 +1,16 @@
+{
+  "name": "justsimpleintents",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "node-nlp": "^5.0.0-alpha.5"
+  }
+}

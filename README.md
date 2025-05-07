@@ -11,12 +11,14 @@ just-simple-intents/
 │   └── config.js
 │
 ├── intents/
-│   ├── getTime/
+│   ├── foo/
 │   │   ├── index.js
-│   │   └── training.json
-│   └── getWeather/
+│   │   ├── training.json
+│   │   └── README.md
+│   └── bar/
 │       ├── index.js
-│       └── training.json
+│       ├── training.json
+│       └── README.md
 │
 ├── index.js
 ├── package.json

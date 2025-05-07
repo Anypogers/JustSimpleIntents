@@ -1,0 +1,9 @@
+{
+  "intentName": "templateIntent",
+  "en-US": [
+    "test",
+    "foo",
+    "bar",
+    "hello world"
+  ]
+}

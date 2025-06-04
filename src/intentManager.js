@@ -15,7 +15,19 @@ const manager = new NlpManager({
 });
 
 export function trainNLPModel() {
-  
+  const intents = intentRouter.getValidIntents();
+  const languages = config.getStaticConfig('languages');
+  intents.forEach(intent => {
+    const data = intentRouter.getValidIntents(intent);
+    const availableData = Object.keys(data);
+    availableData.forEach(dataPoint => {
+      if (dataPoint in languages) {
+        data[dataPoint].forEach(trainingPhrase => {
+          manager.addDocument(dataPoint, trainingPhrase, data.intentName);
+        });
+      }
+    });
+  });
 }
 
 await manager.train();

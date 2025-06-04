@@ -33,7 +33,28 @@ const staticConfig = {
   defaultIntent: null,
 }
 
-// Setters (Static Config)
+const permanentStaticConfig = Object.keys(staticConfig);
+
+// Getter (Dynamic Config)
+
+export function getStaticConfig(configName) {
+  if (!staticConfig.hasOwnProperty(configName)) {
+    throw new Error(`Config exist. ${configName}`);
+  }
+
+  value = staticConfig[configName];
+
+  // Automatically resolve intentsPath to absolute when requested
+  if (configName === 'intentsPath') {
+    value = path.isAbsolute(value)
+      ? value
+      : path.resolve(process.cwd(), value); // resolves relative to where the program is run
+  }
+
+  return value;
+}
+
+// Setter (Static Config)
 
 export function setStaticConfig(configName, configValue) {
   // Check if the config name is valid
@@ -47,6 +68,31 @@ export function setStaticConfig(configName, configValue) {
   }
   
   staticConfig[configName] = configValue;
+}
+
+// Adder (Static Config)
+
+export function addStaticConfig(configName, configValue, overwrite = false) {
+  if (configName in permanentStaticConfig) {
+    throw new Error(`Can't force change value of necessary configs. ${configName}`)
+  }
+  if (staticConfig.hasOwnProperty(configName) && !overwrite) {
+    throw new Error(`Config already exists. ${configName}`)
+  }
+
+  staticConfig[configName] = configValue;
+}
+
+// Remover (Static Config)
+
+export function remStaticConfig(configName) {
+  if (configName in permanentStaticConfig) {
+    throw new Error(`Cannot delete necessary configs. ${configName}`)
+  }
+  if (!staticConfig.hasOwnProperty(configName)) {
+    throw new Error(`Config doesn't exist: ${configName}`)
+  }
+  delete staticConfig[configName]
 }
 
 //=======================/
@@ -69,7 +115,18 @@ const dynamicConfig = {
   keyWord: null,
 }
 
-// Setters (Dynamic Config)
+const permanentDynamicConfigs = Object.keys(dynamicConfig);
+
+// Getter (Dynamic Config)
+
+export function getDynamicConfig(configName) {
+  if (!dynamicConfig.hasOwnProperty(configName)) {
+    throw new Error(`Invalid config name: ${configName}`)
+  }
+  return dynamicConfig[configName];
+}
+
+// Setter (Dynamic Config)
 
 export function setDynamicConfig(configName, configValue) {
   // Check if the config name is valid
@@ -85,33 +142,26 @@ export function setDynamicConfig(configName, configValue) {
   dynamicConfig[configName] = configValue;
 }
 
-//================/
-// CONFIGS GETTER /
-//================/
+// Adder (Dynamic Config)
 
-// Getter for all the configs, both static and dynamic  
-
-export function getConfig(configName, type = 'static') {
-  // Check if the config type is valid
-  if (type !== 'static' && type !== 'dynamic') {
-    throw new Error(`Invalid config type: ${type}`);
+export function addDynamicConfig(configName, configValue, overwrite = false) {
+  if (configName in permanentDynamicConfigs) {
+    throw new Error(`Can't force change value of necessary configs. ${configName}`)
   }
-
-  const configSet = type === 'static' ? staticConfig : dynamicConfig;
-  
-  // Check if the config name is valid
-  if (!configSet.hasOwnProperty(configName)) {
-    throw new Error(`Invalid config name: ${configName} (Not found in ${type} config)`);
+  if (dynamicConfig.hasOwnProperty(configName) && !overwrite) {
+    throw new Error(`Config already exists. ${configName}`);
   }
+  dynamicConfig[configName] = configValue;
+}
 
-  let value = configSet[configName];
+// Remover (Dynamic Config)
 
-  // Automatically resolve intentsPath to absolute when requested
-  if (type === 'static' && configName === 'intentsPath') {
-    value = path.isAbsolute(value)
-      ? value
-      : path.resolve(process.cwd(), value); // resolves relative to where the program is run
+export function remDynamicConfig(configName) {
+  if (configName in permanentDynamicConfigs) {
+    throw new Error(`Cannot delete necessary configs. ${configName}`)
   }
-
-  return value;
+  if (!dynamicConfig.hasOwnProperty(configName)) {
+    throw new Error(`Config doesn't exist: ${configName}`)
+  }
+  delete dynamicConfig[configName]
 }

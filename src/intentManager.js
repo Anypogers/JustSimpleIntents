@@ -10,8 +10,13 @@ import * as config from './config.js';
 
 // The NLP manager it self
 const manager = new NlpManager({
-  languages: config.getLanguages(), forceNER: true
+  languages: config.getStaticConfig('languages'),
+  forceNER: config.getStaticConfig('forceNER')
 });
+
+export function trainNLPModel() {
+  
+}
 
 await manager.train();
 manager.save();

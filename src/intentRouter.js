@@ -25,8 +25,10 @@ const defaultIntent = getConfig('defaultIntent');
 // Optional Files inside the folder:
 // - config.json (the configuration for the intent - this is NOT used for the NLP model, but for the intent itself, hence why it's optional)
 // - runtime.js (file that will constantly run. This is used for intents that need to run in the background.)
-//   * NOTE: This can be very resource intensive, so it's recomended to have it not do complex tasks, and only run from time to time, not every possible second.
-//   * This file is completly unrelated to 'index.js'. (However, they can interact with each other if you set it up that way, but they can run independently)
+//   * NOTE: This can be very resource intensive, so it's recommended to have it not do complex tasks, and only run from time to time, not every possible second.
+//   * This file is completely unrelated to 'index.js'. (However, they can interact with each other if you set it up that way, but they can run independently)
+// 
+// 
 export function getValidIntents() {
   const validIntents = [];
 

@@ -6,9 +6,10 @@ ___
 ```
 just-simple-intents/
 ├── core/
+│   ├── call.js
+│   ├── config.js
 │   ├── intentManager.js
-│   ├── intentRouter.js
-│   └── config.js
+│   └── intentRouter.js
 │
 ├── intents/
 │   ├── foo/

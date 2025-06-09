@@ -20,14 +20,13 @@ const defaultIntent = getConfig('defaultIntent');
 //
 // Required Files inside the folder:
 // - index.js (the main file for the intent)
-// - data.json (the training data for the intent)
+// - training.json (the training data for the intent)
 //
 // Optional Files inside the folder:
 // - config.json (the configuration for the intent - this is NOT used for the NLP model, but for the intent itself, hence why it's optional)
 // - runtime.js (file that will constantly run. This is used for intents that need to run in the background.)
 //   * NOTE: This can be very resource intensive, so it's recommended to have it not do complex tasks, and only run from time to time, not every possible second.
 //   * This file is completely unrelated to 'index.js'. (However, they can interact with each other if you set it up that way, but they can run independently)
-// 
 // 
 export function getValidIntents() {
   const validIntents = [];
@@ -44,7 +43,7 @@ export function getValidIntents() {
     const files = fs.readdirSync(folderPath);
 
     const hasIndex = files.includes('index.js');
-    const hasData = files.includes('data.json');
+    const hasData = files.includes('training.json');
     
     if (!hasIndex || !hasData) {
       continue; // Skip folders that don't have the required files
@@ -54,9 +53,16 @@ export function getValidIntents() {
       name : entry.name,
       path : folderPath,
       hasRuntime : files.includes('runtime.js'),
+      hasConfig : files.includes('config.json'),
     });
   }
+
+  return validIntents;
 }
+
+// Array containing every intent available.
+// For more information check the getValidIntents() function.
+export const intentsList = getValidIntents();
 
 // Get the intent data for a specific intent
 // This is the data that is used to train the NLP model
@@ -68,8 +74,21 @@ export function getValidIntents() {
 //      TRAINING_DATA,
 //    ]
 //  }
-export function getIntentData(intentName) {
-  const intentPath = path.join(intentsPath, intentName, 'data.json');
+//
+export async function getIntentTrainingData(intentName) {
+  const intentPath = path.join(intentsPath, intentName, 'training.json');
   const intentData = fs.readFileSync(intentPath, 'utf-8');
   return JSON.parse(intentData);
+}
+
+export async function getIntentInfo(intentName) {
+  validIntents.forEach(intent => {
+    if (intent.intentName == intentName) {
+      return intent;
+    }
+  });
+}
+
+export async function callIntent() {
+  
 }

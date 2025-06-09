@@ -1,9 +1,9 @@
+import * as IntentRouter from './intentRouter'
 
-
-export function getAvailableIntents() {
+export async function getAvailableIntents() {
   return [];
 }
 
-export function callIntent(intentName, args) {
+export async function callIntent(intentName, args) {
   
 }

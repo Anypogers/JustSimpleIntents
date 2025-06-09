@@ -18,7 +18,7 @@ export function trainNLPModel() {
   const intents = intentRouter.getValidIntents();
   const languages = config.getStaticConfig('languages');
   intents.forEach(intent => {
-    const data = intentRouter.getValidIntents(intent);
+    const data = intentRouter.getIntentTrainingData(intent);
     const availableData = Object.keys(data);
     availableData.forEach(dataPoint => {
       if (dataPoint in languages) {

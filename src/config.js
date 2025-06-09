@@ -146,10 +146,13 @@ export function setDynamicConfig(configName, configValue) {
 
 export function addDynamicConfig(configName, configValue, overwrite = false) {
   if (configName in permanentDynamicConfigs) {
-    throw new Error(`Can't force change value of necessary configs. ${configName}`)
+    throw new Error(`Can't force change value of necessary configs. ${configName}`);
   }
-  if (dynamicConfig.hasOwnProperty(configName) && !overwrite) {
-    throw new Error(`Config already exists. ${configName}`);
+  if (dynamicConfig.hasOwnProperty(configName)) {
+    if (!overwrite) {
+      throw new Error(`Config already exists. ${configName}`);
+    }
+    setDynamicConfig(configName, configValue);
   }
   dynamicConfig[configName] = configValue;
 }

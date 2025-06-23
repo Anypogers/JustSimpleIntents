@@ -41,17 +41,7 @@ export function getStaticConfig(configName) {
   if (!staticConfig.hasOwnProperty(configName)) {
     throw new Error(`Config exist. ${configName}`);
   }
-
-  value = staticConfig[configName];
-
-  // Automatically resolve intentsPath to absolute when requested
-  if (configName === 'intentsPath') {
-    value = path.isAbsolute(value)
-      ? value
-      : path.resolve(process.cwd(), value); // resolves relative to where the program is run
-  }
-
-  return value;
+  return staticConfig[configName];
 }
 
 // Setter (Static Config)

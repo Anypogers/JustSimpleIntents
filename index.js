@@ -1,8 +1,9 @@
-import { trainNLPModel } from "./src/intentManager";
-import * as APICall from './src/call';
+import * as intentManager from './src/intentManager.js';
 
 function main(){
-  trainNLPModel()
-  await APICall.callIntent("templateIntent");
-  await APICall.callIntent("getTime"); 
+  intentManager.trainNLPModel();
+
+  console.log(intentManager.call("test"));
 }
+
+main()

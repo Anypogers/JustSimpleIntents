@@ -18,7 +18,7 @@ export function trainNLPModel() {
   const intents = intentRouter.getValidIntents();
   const languages = config.getStaticConfig('languages');
   intents.forEach(intent => {
-    const data = intentRouter.getIntentTrainingData(intent);
+    const data = intentRouter.getIntentTrainingData(intent.name);
     const availableData = Object.keys(data);
     availableData.forEach(dataPoint => {
       if (dataPoint in languages) {
@@ -28,7 +28,18 @@ export function trainNLPModel() {
       }
     });
   });
+  manager.train();
+  manager.save();
 }
 
-await manager.train();
-manager.save();
+export async function call(message){
+  let language = await config.getStaticConfig["language"]
+  if (language.length == 0 || message == ""){
+    return
+  }
+  if (language.length == 1){
+    language = language[0]
+  }
+  const response = await manager.process('en', message);
+  return response;
+}

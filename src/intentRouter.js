@@ -6,13 +6,13 @@
 
 import fs from 'fs';
 import path from 'path';
-import { getConfig } from './config.js';
+import * as config from './config.js';
 
-const threshold = getConfig('threshold');
-const languages = getConfig ('languages');
-const forceNER = getConfig('forceNER');
-const intentsPath = getConfig('intentsPath');
-const defaultIntent = getConfig('defaultIntent');
+const threshold = config.getStaticConfig('threshold');
+const languages = config.getStaticConfig('languages');
+const forceNER = config.getStaticConfig('forceNER');
+const intentsPath = config.getStaticConfig('intentsPath');
+const defaultIntent = config.getStaticConfig('defaultIntent');
 
 // Get all the valid intent folders in the intentsPath.
 // (where all the intents are stored)
@@ -76,8 +76,8 @@ export const intentsList = getValidIntents();
 //  }
 //
 export async function getIntentTrainingData(intentName) {
-  const intentPath = path.join(intentsPath, intentName, 'training.json');
-  const intentData = fs.readFileSync(intentPath, 'utf-8');
+  const intentPath = `/intents/${intentName}/training.json`
+  const intentData = fs.readFileSync(path.resolve(intentPath), 'utf-8');
   return JSON.parse(intentData);
 }
 

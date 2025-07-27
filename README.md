@@ -7,8 +7,7 @@ ___
 just-simple-intents/
 ├── src/
 │   ├── intentManager.js
-│   ├── intentRouter.js
-│   └── config.js
+│   └── intentRouter.js
 │
 ├── intents/
 │   ├── foo/

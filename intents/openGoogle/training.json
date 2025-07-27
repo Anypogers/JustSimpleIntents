@@ -1,0 +1,18 @@
+{
+  "intentName": "openGoogle",
+  "requiresArgs": true,
+  "noArgsMessage": "Please provide a search query. Example: 'search cats on Google'.",
+  "args": {
+    "query": {
+      "description": "The search term to look up"
+    }
+  },
+  "en-US": [
+    "browse",
+    "browser",
+    "google",
+    "chrome",
+    "firefox",
+    "search"
+  ]
+}

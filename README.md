@@ -5,7 +5,7 @@ ___
 ### File Structure
 ```
 just-simple-intents/
-├── core/
+├── src/
 │   ├── intentManager.js
 │   ├── intentRouter.js
 │   └── config.js

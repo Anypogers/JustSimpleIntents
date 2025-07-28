@@ -22,7 +22,7 @@ export async function trainIntents() {
   }
 }
 
-export async function processInput(input, args = {}) {
+export async function processInput(input) {
   const response = await manager.process(getConfig('languages')[0], input);
 
   if (getConfig('debugMode', 'dynamic')) {
@@ -51,18 +51,11 @@ export async function processInput(input, args = {}) {
     }
     return;
   }
-
-  const trainingData = loadTrainingData(intentName);
-
-  if (trainingData.requiresArgs && (!args || Object.keys(args).length === 0)) {
-    console.log(trainingData.noArgsMessage || "This intent requires arguments, but none were provided.");
-    return;
-  }
   
   const handlerFn = await matched.handler();
-
+  
   try {
-    await handlerFn({ args });
+    await handlerFn( input );
   } catch (err) {
     console.error(`Error running intent '${intentName}':`, err);
   }
@@ -71,6 +64,8 @@ export async function processInput(input, args = {}) {
 function loadTrainingData(intentName) {
   const intentFolder = getConfig('intentsPath') + '/' + intentName;
   const trainingPath = intentFolder + '/training.json';
+  console.log(trainingPath)
+
   try {
     return JSON.parse(fs.readFileSync(trainingPath, 'utf-8'));
   } catch (e) {

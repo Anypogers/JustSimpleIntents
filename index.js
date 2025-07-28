@@ -12,16 +12,8 @@ const rl = readline.createInterface({
 trainIntents();
 
 rl.on('line', async (line) => {
-  // Simulate input with optional args
-  const split = line.trim().split(' ');
-  const input = split[0];
-  const args = split.slice(1);
-
   try {
-    const result = await processInput(line, args);
-    if (!result.success) {
-      console.log(`${result.message}`);
-    }
+    const result = await processInput(line);
   } catch (err) {
     console.error('❌ Unexpected error while processing intent:', err);
   }

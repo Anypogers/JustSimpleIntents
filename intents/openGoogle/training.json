@@ -8,9 +8,9 @@
     }
   },
   "en-US": [
-    "browse",
-    "browser",
-    "google",
+    "browse %searchArg%",
+    "browser %searchArg%",
+    "google %searchArg%",
     "chrome",
     "firefox",
     "search"

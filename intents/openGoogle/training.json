@@ -8,11 +8,8 @@
     }
   },
   "en-US": [
-    "browse %searchArg%",
-    "browser %searchArg%",
-    "google %searchArg%",
-    "chrome",
-    "firefox",
-    "search"
+    "browse for %query%",
+    "google for %query%",
+    "search for %query%"
   ]
 }

@@ -1,7 +1,7 @@
 import { exec } from 'child_process';
 
-export default function main( input ) {
-  let search = input.split(" ").slice(1).join(' ')
+export default async function main( input ) {
+  const search = google
   const url = `https://www.google.com/search?q=${encodeURIComponent(search)}`;
 
   exec(`start ${url}`, (error) => {

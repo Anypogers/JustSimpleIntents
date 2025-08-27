@@ -37,30 +37,45 @@ export async function processInput(input) {
     if (getConfig('debugMode', 'dynamic')) {
       console.log("No intent matched with sufficient confidence.");
     }
-    return;
-  }
-
-  if (getConfig('debugMode', 'dynamic')) {
-    console.log(`Matched intent: ${intentName} (score: ${score})`);
+    return { success: false, message: "No matching intent found." };
   }
 
   const matched = loadedIntents.find(i => i.intent === intentName);
   if (!matched) {
-    if (getConfig('debugMode', 'dynamic')) {
-      console.error(`Intent handler for '${intentName}' not found.`);
-    }
-    return;
+    return { success: false, message: `Intent '${intentName}' not found.` };
   }
-  
+
   const handlerFn = await matched.handler();
-  
+
+  // === ARGUMENT EXTRACTION ===
+  const args = {};
+
+  const training = matched.utterance;
+  const inputWords = input.trim().split(/\s+/);
+  const trainingWords = training.trim().split(/\s+/);
+
+  for (let i = 0; i < trainingWords.length; i++) {
+    const word = trainingWords[i];
+    if (word.startsWith('%') && word.endsWith('%')) {
+      const argName = word.slice(1, -1);
+      args[argName] = inputWords.slice(i).join(' ');
+      break; // Assume one arg at end for now
+    }
+  }
+
+  // === CHECK REQUIRED ARGS ===
+  if (matched.requiresArgs && Object.values(args).every(val => !val)) {
+    return { success: false, message: matched.noArgsMessage };
+  }
+
   try {
-    await handlerFn( input );
+    await handlerFn({ args });
+    return { success: true };
   } catch (err) {
     console.error(`Error running intent '${intentName}':`, err);
+    return { success: false, message: `Error running intent '${intentName}'` };
   }
 }
-
 function loadTrainingData(intentName) {
   const intentFolder = getConfig('intentsPath') + '/' + intentName;
   const trainingPath = intentFolder + '/training.json';

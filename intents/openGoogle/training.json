@@ -1,15 +1,15 @@
 {
   "intentName": "openGoogle",
   "requiresArgs": true,
-  "noArgsMessage": "Please provide a search query. Example: 'search cats on Google'.",
+  "noArgsMessage": "Please provide a search query.",
   "args": {
     "query": {
-      "description": "The search term to look up"
+      "description": "The search term"
     }
   },
   "en-US": [
-    "browse for %query%",
-    "google for %query%",
-    "search for %query%"
+    "search %query%",
+    "google %query%",
+    "browse %query%"
   ]
 }

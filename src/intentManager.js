@@ -76,6 +76,7 @@ export async function processInput(input) {
     return { success: false, message: `Error running intent '${intentName}'` };
   }
 }
+
 function loadTrainingData(intentName) {
   const intentFolder = getConfig('intentsPath') + '/' + intentName;
   const trainingPath = intentFolder + '/training.json';

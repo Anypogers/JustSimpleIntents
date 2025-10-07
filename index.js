@@ -1,6 +1,7 @@
 import readline from 'readline';
 import { processInput, trainIntents } from './src/intentManager.js';
 import { getConfig, setDynamicConfig } from './src/config.js';
+import startServer from './src/server.js';
 
 setDynamicConfig('debugMode', true);
 
@@ -18,3 +19,5 @@ rl.on('line', async (line) => {
     console.error('❌ Unexpected error while processing intent:', err);
   }
 });
+
+startServer();

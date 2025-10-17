@@ -1,0 +1,15 @@
+{
+  "intentName": "openBoth",
+  "requiresArgs": true,
+  "noArgsMessage": "Please provide a search query.",
+  "args": {
+    "query": {
+      "description": "The search term"
+    }
+  },
+  "en-US": [
+    "both %query%",
+    "both %query%",
+    "both %query%"
+  ]
+}

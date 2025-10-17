@@ -1,0 +1,12 @@
+{
+  "intentName": "randomPlaylist",
+  "requiresArgs": false,
+  "en-US": [
+    "random playlist",
+    "randomplaylist",
+    "rndplaylist",
+    "random music",
+    "randommusic",
+    "rndmusic"
+  ]
+}

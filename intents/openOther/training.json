@@ -1,0 +1,15 @@
+{
+  "intentName": "openOther",
+  "requiresArgs": true,
+  "noArgsMessage": "Please provide a search query.",
+  "args": {
+    "query": {
+      "description": "The search term"
+    }
+  },
+  "en-US": [
+    "other %query%",
+    "other %query%",
+    "other %query%"
+  ]
+}
